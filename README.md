@@ -13,9 +13,10 @@
 3. Sasikran Sawangtem 6631501108 - PM / Senior Dev
 4. Parichat Phojan 6631501163 - Junior Dev
 
-### Tarks 
+## Tarks 
 PM / Senior Dev 
 - วางโครงหน้า Login + Exit menu และวางโครง Database 
+- ทำ SQL ผ่าน phpMyadmin
 - ตรวจ Code 
 
 Junior Dev
@@ -23,7 +24,7 @@ Junior Dev
 2. ทำ Search expense + Add new expense
 3. ทำ Delete expense 
 
-#### Feature
+## Feature
 - Feature-showall
 - Feature-today
 - Feature-search
