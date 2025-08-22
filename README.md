@@ -24,11 +24,11 @@ Junior Dev
 3. ทำ Delete expense 
 
 #### Feature
-Feature-showall
-Feature-today
-Feature-search
-Feature-add
-Feature-delete
+- Feature-showall
+- Feature-today
+- Feature-search
+- Feature-add
+- Feature-delete
 
 A sample command-line application with an entrypoint in `bin/`, library code
 in `lib/`, and example unit test in `test/`.
