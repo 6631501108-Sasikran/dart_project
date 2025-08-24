@@ -1,5 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'dart:io';
+import 'dart:convert';
+
 
 void main() async {
   await login();
@@ -69,9 +71,83 @@ Future<void> showAll() async {}
 Future<void> showToday() async {}
 
 // Search expense
+Future<void> searchExpense() async {
+  stdout.write("Item to search: ");
+  final q = stdin.readLineSync()?.trim() ?? "";
+  if (q.isEmpty) {
+    print("No keyword");
+    return;
+  }
+  final res = await http.get(Uri.parse('http://localhost:3000/expenses/search?keyword=${Uri.encodeComponent(q)}'));
+  if (res.statusCode != 200) {
+    print(res.body);
+    return;
+  }
+  final data = jsonDecode(res.body);
+  if (data is List && data.isNotEmpty) {
+    for (final e in data) {
+      final id = e['id'] ?? '';
+      final item = e['item'] ?? e['name'] ?? '';
+      final amount = (e['amount'] ?? e['price'] ?? 0).toString();
+      final created = e['created_at'] ?? e['createdAt'] ?? '';
+      final amt = amount.endsWith('.0') ? amount.substring(0, amount.length - 2) : amount;
+      print("$id. $item : ${amt}฿ : $created");
+    }
+    return;
+  }
+  print('No item found');
+  stdout.write("Add new expense? (y/n): ");
+  final ans = stdin.readLineSync()?.trim().toLowerCase();
+  if (ans != 'y') return;
+  stdout.write("Item name: ");
+  final name = stdin.readLineSync()?.trim() ?? "";
+  stdout.write("Amount (฿): ");
+  final amtStr = stdin.readLineSync()?.trim() ?? "0";
+  final amt = double.tryParse(amtStr) ?? 0;
+  final addRes = await http.post(Uri.parse('http://localhost:3000/expenses'), body: {
+    'item': name,
+    'amount': amt.toString(),
+  });
+  if (addRes.statusCode == 200 || addRes.statusCode == 201) {
+    print("Added");
+  } else {
+    print(addRes.body);
+  }
+}
+
+
 Future<void> searchExpense() async {}
 
+
 // Add new expense
+Future<void> addExpense() async {
+  print("===== Add new item =====");
+  stdout.write("Item: ");
+  final item = stdin.readLineSync()?.trim() ?? "";
+  stdout.write("Paid: ");
+  final paidStr = stdin.readLineSync()?.trim() ?? "";
+  final paid = double.tryParse(paidStr) ?? -1;
+
+  if (item.isEmpty || paid <= 0) {
+    print("Invalid input");
+    return;
+  }
+
+  final res = await http.post(
+    Uri.parse('http://localhost:3000/expenses'),
+    body: {
+      'item': item,
+      'paid': paid.toString(), // ใช้ชื่อ field paid ให้ตรงกับ DB
+    },
+  );
+
+  if (res.statusCode == 200 || res.statusCode == 201) {
+    print("Inserted!");
+  } else {
+    print(res.body.isNotEmpty ? res.body : "Insert failed");
+  }
+}
+
 Future<void> addExpense() async {}
 
 
@@ -79,6 +155,9 @@ Future<void> addExpense() async {}
 Future<void> deleteExpense() async {
   stdout.write("Enter item id to delete: ");
   String? id = stdin.readLineSync()?.trim();
+
+
+}
 
   if (id == null || id.isEmpty) {
     print("No id entered");
@@ -94,3 +173,4 @@ Future<void> deleteExpense() async {
     print("Error: ${response.body}");
   }
 }
+
