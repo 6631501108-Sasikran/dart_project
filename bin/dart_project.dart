@@ -1,8 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:io';
-import 'dart:convert';
-
 
 void main() async {
   await login();
@@ -87,7 +85,7 @@ Future<void> showAll() async {
   } else {
     print("Error fetching expenses: ${response.statusCode}");
   }
-
+}
 
 Future<void> showToday() async {
   final url = Uri.parse('http://localhost:3000/expenses/today');
