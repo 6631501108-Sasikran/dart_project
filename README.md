@@ -8,8 +8,8 @@
 - Exit
 
 ## Team members
-1. 6631501002 - Junior Dev
-2. 6631501025 - Junior Dev
+1. Korawan Kongkerd 6631501002 - Junior Dev
+2. Chanidapa Wongsena 6631501025 - Junior Dev
 3. Sasikran Sawangtem 6631501108 - PM / Senior Dev
 4. Parichat Phojan 6631501163 - Junior Dev
 
