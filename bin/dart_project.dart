@@ -65,10 +65,16 @@ Future<void> menuLoop(String name) async {
 }
 
 // All expenses
-Future<void> showAll() async {}
+Future<void> showAll() async {
+
+
+}
 
 // Today's expenses
-Future<void> showToday() async {}
+Future<void> showToday() async {
+
+
+}
 
 // Search expense
 Future<void> searchExpense() async {
@@ -115,10 +121,6 @@ Future<void> searchExpense() async {
   }
 }
 
-
-Future<void> searchExpense() async {}
-
-
 // Add new expense
 Future<void> addExpense() async {
   print("===== Add new item =====");
@@ -148,17 +150,10 @@ Future<void> addExpense() async {
   }
 }
 
-Future<void> addExpense() async {}
-
-
 // Delete expense
 Future<void> deleteExpense() async {
   stdout.write("Enter item id to delete: ");
   String? id = stdin.readLineSync()?.trim();
-
-
-}
-
   if (id == null || id.isEmpty) {
     print("No id entered");
     return;
@@ -172,5 +167,5 @@ Future<void> deleteExpense() async {
   } else {
     print("Error: ${response.body}");
   }
-}
 
+}

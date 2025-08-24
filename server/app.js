@@ -49,7 +49,6 @@ app.post('/login', (req, res) => {
 
 
 // -------- search expenses ---------
-// -------- search expenses ---------
 app.get('/expenses/search', (req, res) => {
   const keyword = (req.query.keyword || '').trim();
   if (!keyword) return res.json([]);
@@ -77,7 +76,6 @@ app.get('/expenses/search', (req, res) => {
 });
 
 // -------- add new expenses ---------
-
 app.post('/expenses', (req, res) => {
   const item = (req.body.item || '').trim();
   const paid = parseFloat(req.body.paid);
@@ -95,7 +93,6 @@ app.post('/expenses', (req, res) => {
     return res.status(201).send("Inserted!"); //
   });
 });
-
 
 
 // -------- delete expenses ---------
