@@ -99,7 +99,22 @@ app.post('/expenses', (req, res) => {
 
 
 // -------- delete expenses ---------
+app.delete('/expenses/:id', (req, res) => {
+    const expenseId = req.params.id;
+    const sql = "DELETE FROM expense WHERE id = ?";
 
+    con.query(sql, [expenseId], (err, result) => {
+        if (err) {
+            return res.status(500).send("Database error", err);
+        }
+
+        if (result.affectedRows === 0) {
+            return res.status(404).send("Expense not found");
+        }
+
+        res.send("Deleted!");
+    });
+});
 
 app.listen(3000, () => { 
     console.log('Server is working'); 
