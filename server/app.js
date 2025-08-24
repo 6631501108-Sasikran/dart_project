@@ -41,10 +41,26 @@ app.post('/login', (req, res) => {
 
 
 // -------- get all expenses ---------
+app.get('/expenses', (_req, res) => {
+    const sql = "SELECT * FROM expense";
+    con.query(sql, (err, results) => {
+        if(err) return res.status(500).send('Database error!');
+        res.json(results);
+    });
+});
+
 
 
 
 // -------- get today expenses ---------
+app.get('/expenses/today', (_req, res) => {
+    const today = new Date().toISOString().split('T')[0]; 
+    const sql = "SELECT * FROM expense WHERE DATE(date) = ?";
+    con.query(sql, [today], (err, results) => {
+        if(err) return res.status(500).send('Database error!');
+        res.json(results);
+    });
+});
 
 
 

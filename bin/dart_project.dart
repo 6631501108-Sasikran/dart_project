@@ -1,4 +1,5 @@
 import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'dart:io';
 import 'dart:convert';
 
@@ -66,14 +67,49 @@ Future<void> menuLoop(String name) async {
 
 // All expenses
 Future<void> showAll() async {
+  final url = Uri.parse('http://localhost:3000/expenses');
+  final response = await http.get(url);
+
+  if (response.statusCode == 200) {
+    final body = utf8.decode(response.bodyBytes);
+    final List<dynamic> expenses = jsonDecode(body);
+    print("------------- All expenses -----------");
+    int total = 0;
+
+    for (var e in expenses) {
+      String title = e['item'] ?? "No title";
+      int amount = (e['paid'] is int) ? e['paid'] : (e['paid'] as num).toInt();
+      String created = e['date'] ?? "No date";
+      print("$title : $amount฿ : $created");
+      total += amount;
+    }
+    print("Total expenses = $total฿");
+  } else {
+    print("Error fetching expenses: ${response.statusCode}");
+  }
 
 
-}
-
-// Today's expenses
 Future<void> showToday() async {
+  final url = Uri.parse('http://localhost:3000/expenses/today');
+  final response = await http.get(url);
 
-
+  if (response.statusCode == 200) {
+    final List<dynamic> expenses = jsonDecode(response.body);
+    print("------------- Today's expenses -----------");
+    int total = 0;
+    for (var e in expenses) {
+      String title = e['item'] ?? "No title";
+      int amount = (e['paid'] is int)
+          ? e['paid']
+          : int.tryParse(e['paid'].toString()) ?? 0;
+      String created = e['date'] ?? "No date";
+      print("$title : $amount฿ : $created");
+      total += amount;
+    }
+    print("Total expenses = $total฿");
+  } else {
+    print("Error fetching today's expenses");
+  }
 }
 
 // Search expense
@@ -169,3 +205,4 @@ Future<void> deleteExpense() async {
   }
 
 }
+
