@@ -92,7 +92,7 @@ app.post('/expenses', (req, res) => {
       console.error('[add] error:', err);
       return res.status(500).send('Database error');
     }
-    return res.status(201).send("Inserted!");
+    return res.status(201).send("Inserted!"); //
   });
 });
 
