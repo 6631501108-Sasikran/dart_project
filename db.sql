@@ -39,6 +39,6 @@ INSERT INTO expense (user_id, item, paid, date) VALUES
 (1,'coffee', 45,'2025-08-20 13:07:33'),
 (1,'rent', 1600,'2025-08-01 07:26:53'),
 (2,'lunch',  50,'2025-08-20 13:27:39'),
-(2,'bun',    20,'2025-08-20 21:02:36');
+(2,'bun',    20,'2025-08-28 21:02:36');
 
 SET FOREIGN_KEY_CHECKS = 1;
